@@ -21,10 +21,15 @@ class ListaNum:
                 print(f"El numero {numeros} se repite {self.listaNum.count(numeros)} veces")
 
             if numeros%2 == 0:
-                pares.append(numeros) 
-
+                if numeros in pares:
+                    pass
+                else:
+                    pares.append(numeros)
             else:
-                impares.append(numeros)
+                if numeros in impares:
+                    pass
+                else:
+                    impares.append(numeros)
                 
         print(self.listaNum)
         print(f"Los numeros pares son: {pares}")
