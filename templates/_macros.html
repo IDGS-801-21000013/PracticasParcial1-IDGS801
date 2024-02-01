@@ -1,0 +1,8 @@
+
+
+{% macro distancia(field) %}
+
+<td>{{field.label}}</td>
+<dd>{{field(**kwargs) | safe }}</dd>
+
+{% endmacro %}

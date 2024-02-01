@@ -1,0 +1,37 @@
+{% extends "layout2.html" %}
+{% block content %}
+
+{% import '_macros.html' as macros %}
+            
+
+            <form action="" method="POST" class="container" novalidate>
+                <h1>Calcular distancia</h1>
+                <div class="row control-row">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        {{macros.distancia(form.x1, class="form-control")}}        
+                    </div>
+                </div>
+                <div class="row control-row">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        {{macros.distancia(form.x2, class="form-control")}}        
+                    </div>
+                </div>
+                <div class="row control-row">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        {{macros.distancia(form.y1, class="form-control")}}        
+                    </div>
+                </div>
+                <div class="row control-row">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        {{macros.distancia(form.y2, class="form-control")}}        
+                    </div>
+                </div>
+
+                <input type="submit" id="btn1" name="btn1" value="Registrar">
+                <h1>Distancia: {{resultado}}</h1>
+            </form>
+
+            
+            
+
+{% endblock %}
