@@ -6,3 +6,10 @@
 <dd>{{field(**kwargs) | safe }}</dd>
 
 {% endmacro %}
+
+{% macro resistencia(field) %}
+
+<td>{{field.label}}</td>
+<dd>{{field(**kwargs) | safe }}</dd>
+
+{% endmacro %}

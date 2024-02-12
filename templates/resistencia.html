@@ -1,0 +1,66 @@
+{% extends "layout2.html" %}
+{% block content %}
+
+{% import '_macros.html' as macros %}
+
+<style>
+    .td1{ background-color:{{col1}}; }
+    .td2{ background-color:{{col2}}; }
+    .td3{ background-color:{{col3}}; }
+    .td4{ background-color:{{col4}}; }
+    tr td{
+        color: rgb(87, 91, 100);
+    }
+</style>
+
+        <form action=""  method="POST" class="container" >
+            <h1>Calcular Resistencia</h1>
+            <div class="row control-row">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                    {{macros.resistencia(form.b1, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-row">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                    {{macros.resistencia(form.b2, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-row">
+                <div  class="form-group col-xs-12 floating-label-form-group controls">
+                    {{macros.resistencia(form.b3, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-row">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                    {{macros.resistencia(form.t, class="form-control")}}
+                </div>
+            </div>
+
+            <input type="submit" id="btn1" name="btn1" value="Registrar">
+            <table class="table">
+                <tr >
+                    <th>{{b1}}</th>
+                    <th>{{b2}}</th>
+                    <th>{{b3}}</th>
+                    <th>{{t}}</th>
+                    <th>Valor</th>
+                    <th>Valor max</th>
+                    <th>Valor MIn</th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <td class="td1">{{c1}}</td>
+                        <td class="td2">{{c2}}</td>
+                        <td class="td3">{{mult}}</td>
+                        <td class="td4">{{tol}}</td>
+                        <td>{{oms}}</td>
+                        <td>{{omsMax}}</td>
+                        <td>{{omsMin}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+            
+        
+            
+{% endblock %}

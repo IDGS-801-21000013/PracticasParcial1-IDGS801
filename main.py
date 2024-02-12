@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from form import DistanciaForm
+from form import DistanciaForm, ResistenciaForm
 
 app = Flask(__name__)
 
@@ -40,6 +40,95 @@ def distancia():
         resultado = ((x2-x1)**2 + (y2-y1)**2)**0.5
     
     return render_template("distancia.html", form=distanciaClase, resultado=resultado)
+
+@app.route("/resistencia", methods=["GET","POST"])
+def resistencia():
+    form = ResistenciaForm(request.form)
+    b1='Negro'
+    b2='Negro'
+    b3='Negro'
+    t='Oro'
+    oms=0
+    omsMax=0
+    omsMin=0
+    c1=0
+    c2=0
+    mult=0
+    tol=0
+    col1='White'
+    col2='White'
+    col3='White'
+
+    if request.method == "POST":
+        b1 = form.b1.data        
+        b2 = form.b2.data
+        b3 = form.b3.data
+        t = form.t.data    
+    
+        vResistencia = {
+        'Negro': 0,
+        'Cafe': 1,
+        'Rojo': 2,
+        'Naranja': 3,
+        'Amarillo': 4,
+        'Verde': 5,
+        'Azul': 6,
+        'Violeta': 7,
+        'Gris': 8,
+        'Blanco': 9
+        }
+
+        bg = {
+        'Negro': 'Black',
+        'Cafe': 'Brown',
+        'Rojo': 'Red',
+        'Naranja': 'Orange',
+        'Amarillo': 'Yellow',
+        'Verde': 'Green',
+        'Azul': 'Blue',
+        'Violeta': 'Purple',
+        'Gris': 'Gray',
+        'Blanco':'White',
+        'Oro':'#FFD700',
+        'Plata':'#BEBEBE',
+        }
+
+        multiplicando = {
+        'Negro': 1,
+        'Cafe': 10,
+        'Rojo': 100,
+        'Naranja': 1000,
+        'Amarillo': 10000,
+        'Verde': 100000,
+        'Azul': 1000000,
+        'Violeta': 10000000,
+        'Gris': 100000000,
+        'Blanco': 1000000000,
+        }
+            
+        tolerancia={
+        'Oro':0.05,
+        'Plata': 0.1
+        }
+
+        c1 = vResistencia[b1]
+        c2 = vResistencia[b2]
+        col1 = bg[b1]
+        col2= bg[b2]
+        col3= bg[b3]
+        col4=bg[t]
+        print(t)
+        print(col4)
+        mult = multiplicando[b3]
+        tol = tolerancia[t]
+        
+        oms = int(str(c1) + str(c2)) * mult
+        omsMax = oms + (oms * tol)
+        omsMin = oms - (oms * tol)
+        
+        return render_template('resistencia.html', form=form, b1=b1, b2=b2, b3=b3, t=t, oms=oms, omsMax=omsMax, omsMin=omsMin, tol=tol, c1=c1, c2=c2, mult=mult, col1=col1, col2=col2, col3=col3, col4=col4)
+    
+    return render_template('resistencia.html', form=form)
     
 if __name__ == "__main__":
     app.run(debug=True) 
