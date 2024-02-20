@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
-from form import DistanciaForm, ResistenciaForm
+from form import DistanciaForm, ResistenciaForm, WriteReadText
+from io import open, IOBase
 
 app = Flask(__name__)
 
@@ -129,6 +130,54 @@ def resistencia():
         return render_template('resistencia.html', form=form, b1=b1, b2=b2, b3=b3, t=t, oms=oms, omsMax=omsMax, omsMin=omsMin, tol=tol, c1=c1, c2=c2, mult=mult, col1=col1, col2=col2, col3=col3, col4=col4)
     
     return render_template('resistencia.html', form=form)
-    
+
+@app.route('/archivos', methods=["GET", "POST"])
+def EscrText():
+    form = WriteReadText(request.form)
+    file_content = ""
+    palabra_encontrada = ""
+
+    if request.method == "POST":
+        ingles = form.ingles.data
+        espanol = form.espanol.data
+        buscar = form.buscar.data
+        radio = form.radio.data
+
+        if form.escribir.data and form.escribir.validate(form):
+            with open('diccionario.txt', 'a') as file:
+                file.write(f"{ingles}:{espanol},\n")
+
+            form.ingles.data = ""
+            form.espanol.data = ""
+        
+        elif form.leer.data and form.leer.validate(form):  
+                with open('diccionario.txt', 'r') as file:
+                    file_content = file.read()
+                    for line in file_content.split(','):
+                        print(line)
+                        if buscar in line:
+                            clave, valor = line.split(':')
+                            if radio == "Español":
+                                palabra_encontrada = clave
+                            elif radio == "Ingles":
+                                palabra_encontrada = valor
+                            break
+                        else:
+                            palabra_encontrada = f"No se encontro la palabra {buscar}"  
+
+        form.buscar.data = ""  
+
+        return render_template('archivos.html', form=form, ingles=ingles, espanol=espanol, radio=radio, buscar=buscar,
+                                file_content=file_content, palabra_encontrada=palabra_encontrada)
+
+    return render_template('archivos.html', form=form)
+
+
+def buscar_en_archivo(texto, contenido):
+    lineas = contenido.split('\n')
+    resultados = [linea for linea in lineas if texto.upper() in linea.upper()]
+    return '\n'.join(resultados)
+
+
 if __name__ == "__main__":
     app.run(debug=True) 

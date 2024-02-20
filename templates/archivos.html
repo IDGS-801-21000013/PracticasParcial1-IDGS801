@@ -1,0 +1,50 @@
+{% extends "layout2.html" %}
+{% block content %}
+
+{% import '_macros.html' as macros %}
+            
+    <form action="" method="POST" class="container" novalidate>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                {{macros.archivos(form.ingles, class="form-control")}}
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                {{macros.archivos(form.espanol, class="form-control")}}
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                {{macros.archivos(form.escribir, class="btn btn-info", value="Escribir")}}
+            </div>
+        </div>
+    </form>
+
+    <hr style="height: 1px; background-color:rgb(168, 156, 156); width: 95%; margin: 0 auto 0 auto">
+
+    <form action="" method="POST" class="container" novalidate>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                {{macros.archivos(form.radio, class="form-control")}}
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                {{macros.archivos(form.buscar, class="form-control")}}
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                <h1>{{palabra_encontrada}}</h1>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+                {{macros.archivos(form.leer, class="btn btn-info", value="Buscar")}}
+            </div>
+        </div>
+    </form>
+
+
+{% endblock %}

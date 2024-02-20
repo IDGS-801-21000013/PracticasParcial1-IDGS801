@@ -13,3 +13,18 @@
 <dd>{{field(**kwargs) | safe }}</dd>
 
 {% endmacro %}
+
+{% macro archivos(field) %}
+
+<td>{{field.label}}</td>
+<dd  style="list-style-type: none;" >{{field(**kwargs) | safe }}</dd>
+
+{% if field.errors %}
+<ul>
+    {% for error in field.errors %}
+        <li style="color: red; list-style-type: none;">{{error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endmacro %}
